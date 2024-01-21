@@ -6,7 +6,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class Revolver : MonoBehaviour
 {
     [SerializeField] private BulletSpawner _bulletSpawner;
-    [SerializeField] private Transform _aim;
+    [SerializeField] private RectTransform _aim;
     [SerializeField] private LayerMask _ignoreRaycastMask;
 
     public void Shoot()
@@ -32,10 +32,11 @@ public class Revolver : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit, rayLength, _ignoreRaycastMask))
         //if (Physics.Raycast(rayOriginPosition, rayDirection, out hit, rayLength))
         {
-            _aim.position = hit.point;
+            SetScreenAimPosition(hit.point);
         }
         else
         {
+            SetScreenAimPosition(rayOriginPosition + rayDirection * rayLength);
         }
     }
 
@@ -43,6 +44,15 @@ public class Revolver : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawLine(_bulletSpawner.transform.position, _bulletSpawner.transform.position + _bulletSpawner.transform.forward * 1000f);
+    }
+
+    private void SetScreenAimPosition(Vector3 globalAimPosition)
+    {
+        if (_aim != null)
+        {
+            _aim.position = Camera.main.WorldToScreenPoint(globalAimPosition);
+        }
+
     }
 
 
