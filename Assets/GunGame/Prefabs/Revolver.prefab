@@ -63,6 +63,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2682616033063250771}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &838055013952841375
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 881253552908366644}
+  m_Layer: 0
+  m_Name: HandPivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &881253552908366644
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 838055013952841375}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4849309738175768747}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1392529385423549444
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,6 +338,7 @@ GameObject:
   - component: {fileID: 4815032752823984372}
   - component: {fileID: 3901552507470865279}
   - component: {fileID: 8418282558461011747}
+  - component: {fileID: 7483839580217677459}
   m_Layer: 0
   m_Name: Revolver
   m_TagString: Untagged
@@ -331,6 +363,7 @@ Transform:
   - {fileID: 4714020104449430337}
   - {fileID: 6154036521802639411}
   - {fileID: 9045907899056274631}
+  - {fileID: 881253552908366644}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &7605119850905450532
@@ -500,7 +533,7 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
-  m_AttachTransform: {fileID: 0}
+  m_AttachTransform: {fileID: 881253552908366644}
   m_SecondaryAttachTransform: {fileID: 0}
   m_UseDynamicAttach: 0
   m_MatchAttachPosition: 1
@@ -550,6 +583,20 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+--- !u!114 &7483839580217677459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5190369085719802385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0227b05c91514fe4b8bf46492377f6aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _intensity: 0.7
+  _duration: 0.3
 --- !u!1 &6502748879626576122
 GameObject:
   m_ObjectHideFlags: 0

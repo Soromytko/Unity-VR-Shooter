@@ -9,6 +9,8 @@ public class Revolver : MonoBehaviour
     [SerializeField] private RectTransform _aim;
     [SerializeField] private LayerMask _ignoreRaycastMask;
 
+    private HapticInteractable _hapticInteractable;
+
     public void Shoot()
     {
         _bulletSpawner.SpawnBullet();
@@ -16,10 +18,16 @@ public class Revolver : MonoBehaviour
 
     private void Start()
     {
+        _hapticInteractable = GetComponent<HapticInteractable>();
+        
         XRGrabInteractable grabbable = GetComponent<XRGrabInteractable>();
         grabbable.activated.AddListener(call =>
         {
             Shoot();
+            if (call.interactorObject is XRBaseControllerInteractor controllerInteractor)
+            {
+                TriggerHatpic(controllerInteractor.xrController);
+            }
         });
     }
 
@@ -38,6 +46,11 @@ public class Revolver : MonoBehaviour
         {
             SetScreenAimPosition(rayOriginPosition + rayDirection * rayLength);
         }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Shoot();
+        }
     }
 
     private void OnDrawGizmos()
@@ -52,8 +65,16 @@ public class Revolver : MonoBehaviour
         {
             _aim.position = Camera.main.WorldToScreenPoint(globalAimPosition);
         }
-
     }
 
+    private void TriggerHatpic(XRBaseController controller)
+    {
+        if (_hapticInteractable != null && controller != null)
+        {
+            _hapticInteractable.TriggerHatpic(controller);
+        }
+    }
+
+   
 
 }
