@@ -6,9 +6,8 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class Revolver : MonoBehaviour
 {
     [SerializeField] private BulletSpawner _bulletSpawner;
-    [SerializeField] private Transform _aimPrefab;
-
-    private Transform _aim;
+    [SerializeField] private Transform _aim;
+    [SerializeField] private LayerMask _ignoreRaycastMask;
 
     public void Shoot()
     {
@@ -17,36 +16,34 @@ public class Revolver : MonoBehaviour
 
     private void Start()
     {
-        _aim = Instantiate(_aimPrefab);
-
         XRGrabInteractable grabbable = GetComponent<XRGrabInteractable>();
         grabbable.activated.AddListener(call =>
         {
-            print("AAAAAAAAAAAAA");
             Shoot();
         });
     }
 
-private void Update()
+    private void Update()
     {
-        _aim.gameObject.SetActive(false);
-
         Vector3 rayOriginPosition = _bulletSpawner.transform.position;
         Vector3 rayDirection = _bulletSpawner.transform.forward;
-        float rayLength = Mathf.Infinity;
-        RaycastHit hit;
-        if (Physics.Raycast(rayOriginPosition, rayDirection, out hit, rayLength))
+        float rayLength = 1000f;
+        Ray ray = new Ray(rayOriginPosition, rayDirection);
+        if (Physics.Raycast(ray, out RaycastHit hit, rayLength, _ignoreRaycastMask))
+        //if (Physics.Raycast(rayOriginPosition, rayDirection, out hit, rayLength))
         {
-            _aim.gameObject.SetActive(true);
-            _aim.transform.position = hit.point;
+            _aim.position = hit.point;
         }
-
-        if (Input.GetKeyDown(KeyCode.Space))
+        else
         {
-            Shoot();
         }
-       
     }
 
-    
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(_bulletSpawner.transform.position, _bulletSpawner.transform.position + _bulletSpawner.transform.forward * 1000f);
+    }
+
+
 }
