@@ -31,6 +31,10 @@ public class Bullet : MonoBehaviour
             {
                 rb.AddForce(transformDirection * _speed * _force);
             }
+            else if (hit.transform.TryGetComponent<MovingTarget>(out MovingTarget target))
+            {
+                target.TakeDamage();
+            }
             Destroy(gameObject);
         }
 
