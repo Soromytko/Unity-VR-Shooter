@@ -6,7 +6,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class Revolver : MonoBehaviour
 {
     [SerializeField] private BulletSpawner _bulletSpawner;
-    [SerializeField] private RectTransform _aim;
+    [SerializeField] private AimCanvas _aimCanvas;
     [SerializeField] private LayerMask _ignoreRaycastMask;
 
     private HapticInteractable _hapticInteractable;
@@ -29,6 +29,11 @@ public class Revolver : MonoBehaviour
                 TriggerHatpic(controllerInteractor.xrController);
             }
         });
+
+        if (_aimCanvas != null)
+        {
+            _aimCanvas.gameObject.SetActive(true);
+        }
     }
 
     private void Update()
@@ -44,7 +49,7 @@ public class Revolver : MonoBehaviour
         }
         else
         {
-            SetScreenAimPosition(rayOriginPosition + rayDirection * rayLength);
+            _aimCanvas.transform.position = rayOriginPosition + rayDirection * rayLength;
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -61,9 +66,9 @@ public class Revolver : MonoBehaviour
 
     private void SetScreenAimPosition(Vector3 globalAimPosition)
     {
-        if (_aim != null)
+        if (_aimCanvas != null)
         {
-            _aim.position = Camera.main.WorldToScreenPoint(globalAimPosition);
+            _aimCanvas.transform.position = globalAimPosition;
         }
     }
 
