@@ -45,7 +45,7 @@ public class Revolver : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit, rayLength, _ignoreRaycastMask))
         //if (Physics.Raycast(rayOriginPosition, rayDirection, out hit, rayLength))
         {
-            SetScreenAimPosition(hit.point);
+            SetScreenAimPosition(hit.point - rayDirection * 0.1f);
         }
         else
         {

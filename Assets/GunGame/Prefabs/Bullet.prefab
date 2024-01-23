@@ -95,5 +95,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _direction: {x: 0, y: 0, z: 1}
-  _speed: 10
+  _speed: 30
+  _force: 100
   _lifeTimeSec: 3
