@@ -4,14 +4,20 @@ using UnityEngine;
 
 public class Brush : MonoBehaviour
 {
-    [SerializeField] private CustomRenderTexture _renderTexture;
-    [SerializeField] private Material _textureMaterial;
+    public Color BrushColor 
+    {
+        get => _brushColor;
+        set => _brushColor = value;
+    }
 
     [Range(0, 1)]
     [SerializeField] private float _brushRadius = 0.05f;
     [Range(0, 1)]
     [SerializeField] private float _brushStiffness = 0.9f;
     [SerializeField] private Color _brushColor = Color.red;
+
+    [SerializeField] private Board _board;
+    [SerializeField] private CustomRenderTexture _renderTexture;
 
     private static readonly int _brushPositionId = Shader.PropertyToID("_BrushPosition");
     private static readonly int _brushRadiusId = Shader.PropertyToID("_BrushRadius");
@@ -28,18 +34,20 @@ public class Brush : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
         {
-            _textureMaterial.SetFloat(_brushRadiusId, _brushRadius);
-            _textureMaterial.SetFloat(_brushStiffnessdId, _brushStiffness);
-            _textureMaterial.SetColor(_brushColorId, _brushColor);
+            Material material = _board.RenderTextureMaterial;
+            material.SetFloat(_brushRadiusId, _brushRadius);
+            material.SetFloat(_brushStiffnessdId, _brushStiffness);
+            material.SetColor(_brushColorId, _brushColor);
 
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
-                Vector2 textCoord = hit.textureCoord;
-                _textureMaterial.SetVector(_brushPositionId, textCoord);
+                if (hit.transform.TryGetComponent<Board>(out Board board))
+                {
+                    Vector2 textCoord = hit.textureCoord;
+                    material.SetVector(_brushPositionId, textCoord);
+                }
             }
         }
-
-
     }
 }
