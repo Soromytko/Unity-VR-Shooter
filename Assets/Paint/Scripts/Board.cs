@@ -20,9 +20,24 @@ public class Board : MonoBehaviour
         set => _renderTexture = value;
     }
 
+    [SerializeField] private Brush _brush;
     [SerializeField] private Material _renderTextureMaterial;
     [SerializeField] private CustomRenderTexture _renderTexture;
     private MeshRenderer _meshRenderer;
+
+    private static readonly int _brushPositionId = Shader.PropertyToID("_BrushPosition");
+    private static readonly int _brushRadiusId = Shader.PropertyToID("_BrushRadius");
+    private static readonly int _brushStiffnessdId = Shader.PropertyToID("_BrushStiffness");
+    private static readonly int _brushColorId = Shader.PropertyToID("_BrushColor");
+
+    public void Paint(Vector3 uv)
+    {
+        _renderTextureMaterial.SetFloat(_brushRadiusId, _brush.Radius);
+        _renderTextureMaterial.SetFloat(_brushStiffnessdId, _brush.Stiffness);
+        _renderTextureMaterial.SetColor(_brushColorId, _brush.Color);
+
+        _renderTextureMaterial.SetVector(_brushPositionId, uv);
+    }
 
     private void Start()
     {

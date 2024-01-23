@@ -23,7 +23,7 @@ public class BoardUI : MonoBehaviour
                 {
                     if (_brush != null)
                     {
-                        _brush.BrushColor = colorPickerButton.Color;
+                        _brush.Color = colorPickerButton.Color;
                     }
                 });
             }
