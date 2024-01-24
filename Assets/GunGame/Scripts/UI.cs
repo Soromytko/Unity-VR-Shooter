@@ -7,11 +7,13 @@ public class UI : MonoBehaviour
 {
     public void OnRestartButtonPressed()
     {
-        SceneManager.LoadScene("Gun");
+        FindObjectOfType<ScoreManager>().Score = 0;
+        //SceneManager.LoadScene("Gun");
     }
 
     public void OnExitButtonPressed()
     {
-        SceneManager.LoadScene("Lobby");
+        FindObjectOfType<ScoreManager>().Score = 0;
+        //SceneManager.LoadScene("Lobby");
     }
 }

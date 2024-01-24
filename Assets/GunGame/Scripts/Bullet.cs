@@ -27,9 +27,14 @@ public class Bullet : MonoBehaviour
         // Check if the bullet has passed through the obstacle between the frames
         if (Physics.Raycast(_lastPosition, transformDirection, out hit, rayLength))
         {
+            if (hit.transform.TryGetComponent<TargetPoints>(out TargetPoints targetPoints))
+            {
+                targetPoints.GivePoints();
+            }
             if (hit.transform.TryGetComponent<Rigidbody>(out Rigidbody rb))
             {
                 rb.AddForce(transformDirection * _speed * _force);
+                
             }
             else if (hit.transform.TryGetComponent<MovingTarget>(out MovingTarget target))
             {
