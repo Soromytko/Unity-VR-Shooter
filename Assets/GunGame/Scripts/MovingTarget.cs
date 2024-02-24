@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class MovingTarget : MonoBehaviour
 {
+    public float Speed
+    {
+        set => _speed = value;
+    }
     [SerializeField] private float _deviation = 3f;
     [SerializeField] private float _speed = 1f;
     [SerializeField] private AnimationCurve _curve;
