@@ -9,6 +9,7 @@ public class MovingTarget : MonoBehaviour
     {
         set => _speed = value;
     }
+    public bool IsActive { get; set; } = false;
     [SerializeField] private float _deviation = 3f;
     [SerializeField] private float _speed = 1f;
     [SerializeField] private AnimationCurve _curve;
@@ -32,6 +33,10 @@ public class MovingTarget : MonoBehaviour
 
     private void Update()
     {
+        if (!IsActive) {
+            return;
+        }
+        
         float rotateTarget = _isFall ? -70 : 0f;
         float fallSpeed = Time.deltaTime * 200f;
         _xRotation = Mathf.MoveTowards(_xRotation, rotateTarget, fallSpeed);

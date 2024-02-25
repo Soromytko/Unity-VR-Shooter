@@ -6,29 +6,32 @@ using UnityEngine.SceneManagement;
 
 public class UI : MonoBehaviour
 {
+    [SerializeField] private Text _scoreText;
+    [SerializeField] private Text _bestScoreText;
+    [SerializeField] private Timer _gameDurationTimer;
+
+    public void Start()
+    {
+        _scoreText.text = 0.ToString();
+        _bestScoreText.text = Settings.BestScore.ToString();
+
+        float speed = Settings.GameSpeed;
+        foreach (var target in FindObjectsOfType<MovingTarget>())
+        {
+            target.Speed = speed;
+        }
+
+        _gameDurationTimer.Value = Settings.GameDuration;
+    }
+
     public void OnRestartButtonPressed()
     {
-        FindObjectOfType<ScoreManager>().Score = 0;
-        //SceneManager.LoadScene("Gun");
+        SceneManager.LoadScene("Gun");
     }
 
     public void OnExitButtonPressed()
     {
-        FindObjectOfType<ScoreManager>().Score = 0;
-        //SceneManager.LoadScene("Lobby");
+        SceneManager.LoadScene("Lobby");
     }
 
-    public void OnSpeedChanged()
-    {
-        float value = FindObjectOfType<Slider>().value;
-        foreach (var target in FindObjectsOfType<MovingTarget>())
-        {
-            target.Speed = value;
-        }
-    }
-
-    // Лобби
-    // Таймер
-    // Таблица рекордов
-    // Вынести настройки в лоббив
 }

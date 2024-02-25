@@ -5,6 +5,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class Revolver : MonoBehaviour
 {
+    public bool IsActive { get; set; } = false;
     [SerializeField] private BulletSpawner _bulletSpawner;
     [SerializeField] private AimCanvas _aimCanvas;
     [SerializeField] private LayerMask _ignoreRaycastMask;
@@ -13,6 +14,10 @@ public class Revolver : MonoBehaviour
 
     public void Shoot()
     {
+        if (!IsActive) {
+            return;
+        }
+        
         _bulletSpawner.SpawnBullet();
     }
 
