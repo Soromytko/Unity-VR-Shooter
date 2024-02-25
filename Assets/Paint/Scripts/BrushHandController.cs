@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class HandController : MonoBehaviour
+public class BrushHandController : MonoBehaviour
 {
     [SerializeField] private Board _board;
 
