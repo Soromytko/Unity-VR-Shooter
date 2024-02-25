@@ -10,12 +10,19 @@ public class BoardUI : MonoBehaviour
     [SerializeField] private ColorPickerButton[] _colorPickerButtons;
     [SerializeField] private BoardPickerButton[] _boardPickerButtons;
 
+    public void SaveCurrentBoardAsPng()
+    {
+        _board.SaveAsPng();
+    }
+
+    public void ClearCurrentBoard()
+    {
+        _board.Clear();
+    }
+
     private void Start()
     {
-        _colorPickerButtons = GetComponentsInChildren<ColorPickerButton>();
-        _boardPickerButtons = GetComponentsInChildren<BoardPickerButton>();
-
-        foreach (ColorPickerButton colorPickerButton in GetComponentsInChildren<ColorPickerButton>())
+        foreach (ColorPickerButton colorPickerButton in _colorPickerButtons)
         {
             if (colorPickerButton.TryGetComponent<Button>(out Button button))
             {
@@ -29,7 +36,7 @@ public class BoardUI : MonoBehaviour
             }
         }
 
-        foreach (BoardPickerButton boardPickerButton in GetComponentsInChildren<BoardPickerButton>())
+        foreach (BoardPickerButton boardPickerButton in _boardPickerButtons)
         {
             if (boardPickerButton.TryGetComponent<Button>(out Button button))
             {
@@ -48,9 +55,13 @@ public class BoardUI : MonoBehaviour
 
     private void Update()
     {
+        // TODO: debug
         if (Input.GetKeyDown(KeyCode.Alpha1)) _boardPickerButtons[0].GetComponent<Button>().onClick.Invoke();
         if (Input.GetKeyDown(KeyCode.Alpha2)) _boardPickerButtons[1].GetComponent<Button>().onClick.Invoke();
         if (Input.GetKeyDown(KeyCode.Alpha3)) _boardPickerButtons[2].GetComponent<Button>().onClick.Invoke();
+
+        if (Input.GetKeyDown(KeyCode.S)) SaveCurrentBoardAsPng();
+        if (Input.GetKeyDown(KeyCode.C)) ClearCurrentBoard();
     }
 
 

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
+
 
 public class Board : MonoBehaviour
 {
@@ -39,8 +41,31 @@ public class Board : MonoBehaviour
         _renderTextureMaterial.SetVector(_brushPositionId, uv);
     }
 
+    public void Clear()
+    {
+        _renderTextureMaterial.SetVector(_brushPositionId, Vector3.one * -1f);
+        _renderTexture.Initialize();
+    }
+
+    public void SaveAsPng()
+    {
+        // if (!Directory.Exists(path)) {
+        //     Directory.CreateDirectory(dirPath);
+
+        // }
+
+        RenderTexture renderTexture = _renderTexture.GetDoubleBufferRenderTexture();
+        Texture2D texture2D = renderTexture.ToTexture2D();
+        byte[] bytes = texture2D.EncodeToPNG();
+        string path = "Assets/Paint/Images/" + name + ".png";
+        // path = "Assets/screenshot.png";
+        System.IO.File.WriteAllBytes(path, bytes);
+        AssetDatabase.ImportAsset(path);
+    }
+
     private void Start()
     {
         _meshRenderer = GetComponent<MeshRenderer>();
     }
+
 }
