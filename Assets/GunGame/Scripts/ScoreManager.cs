@@ -24,10 +24,22 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private Text _scoreText;
     [SerializeField] private Text _bestText;
 
+    private void Start()
+    {
+        Best = Settings.BestScore;
+    }
+
     public void Update()
     {
         _scoreText.text = Score.ToString();
         _bestText.text = Best.ToString();
+    }
+
+    public void OnGameOver()
+    {
+        if (_score > Best) {
+            Settings.BestScore = _score;
+        }
     }
 
 
