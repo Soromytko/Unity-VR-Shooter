@@ -24,7 +24,6 @@ public class GameLauncher : MonoBehaviour
             revolver.IsActive = true;
         }
     }
-
     public void GameOver()
     {
         foreach (var target in FindObjectsOfType<MovingTarget>())

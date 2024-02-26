@@ -11,18 +11,22 @@ public class ScoreManager : MonoBehaviour
         set
         {
             _score = value;
-            if (_score > Best)
-            {
-                Best = value;
-            }
+            _scoreText.text = _score.ToString();
         }
     }
-    public int Best {get; set; }
-
-    private int _score = 0;
+    public int Best
+    {
+        get => _best;
+        set {
+            _best = value;
+            _bestText.text = _best.ToString();
+        }
+    }
 
     [SerializeField] private Text _scoreText;
     [SerializeField] private Text _bestText;
+    private int _score = 0;
+    private int _best = 0;
 
     private void Start()
     {
@@ -32,13 +36,13 @@ public class ScoreManager : MonoBehaviour
     public void Update()
     {
         _scoreText.text = Score.ToString();
-        _bestText.text = Best.ToString();
     }
 
     public void OnGameOver()
     {
-        if (_score > Best) {
-            Settings.BestScore = _score;
+        if (Score > Best) {
+            Settings.BestScore = Score;
+            Best = Score;
         }
     }
 
