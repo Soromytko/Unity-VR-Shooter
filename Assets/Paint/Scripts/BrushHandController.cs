@@ -9,30 +9,35 @@ public class BrushHandController : MonoBehaviour
 
     private void Start()
     {
-        XRDirectInteractor interactor = GetComponent<XRDirectInteractor>();
-        interactor.selectEntered.AddListener(call =>
-        {
-            if (Physics.Raycast(transform.position, Vector3.forward, out RaycastHit hit, Mathf.Infinity))
-            {
-                 Vector2 textCoord = hit.textureCoord;
-                 _board.Paint(textCoord);
-            }
-        });
+        XRRayInteractor rayInteractor = GetComponent<XRRayInteractor>();
+        rayInteractor.selectEntered.AddListener(call => _board = call.interactableObject.transform.GetComponent<Board>());
+        rayInteractor.selectExited.AddListener(call => _board = null);
     }
 
     private void Update()
     {
-        if (Input.GetMouseButton(0))
+        if (_board != null)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit))
+            if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit))
             {
-                if (hit.transform.TryGetComponent<Board>(out Board board))
-                {
-                    Vector2 textCoord = hit.textureCoord;
-                    _board.Paint(textCoord);
-                }
+                Vector2 textCoord = hit.textureCoord;
+                _board.Paint(textCoord);
             }
         }
+
+
+        //if (Input.GetMouseButton(0))
+        //{
+        //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //    if (Physics.Raycast(ray, out RaycastHit hit))
+        //    {
+        //        if (hit.transform.TryGetComponent<Board>(out Board board))
+        //        {
+        //            Vector2 textCoord = hit.textureCoord;
+        //            _board.Paint(textCoord);
+        //        }
+        //    }
+        //}
     }
+
 }

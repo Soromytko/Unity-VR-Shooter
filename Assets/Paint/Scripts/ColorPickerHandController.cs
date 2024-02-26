@@ -9,15 +9,11 @@ public class ColorPickerHandController : MonoBehaviour
 
     private void Start()
     {
-        XRDirectInteractor interactor = GetComponent<XRDirectInteractor>();
-        interactor.selectEntered.AddListener(call => _colorPickerObj.SetActive(true));
-        interactor.selectExited.AddListener(call => _colorPickerObj.SetActive(false));
+        XRRayInteractor rayInteractor = GetComponent<XRRayInteractor>();
+        rayInteractor.selectEntered.AddListener(call => _colorPickerObj.SetActive(true));
+        rayInteractor.selectExited.AddListener(call => _colorPickerObj.SetActive(false));
 
         _colorPickerObj.SetActive(false);
     }
 
-    private void Update()
-    {
-
-    }
 }

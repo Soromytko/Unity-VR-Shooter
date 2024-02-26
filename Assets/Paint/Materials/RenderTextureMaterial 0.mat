@@ -123,8 +123,8 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _BrushColor: {r: 1, g: 0, b: 0, a: 1}
-    - _BrushPosition: {r: 0.38501635, g: 0.10986698, b: 0, a: 0}
+    - _BrushColor: {r: 0, g: 1, b: 0, a: 1}
+    - _BrushPosition: {r: 0.44911745, g: 0.13321912, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DrawColor: {r: 1, g: 0, b: 0, a: 1}
     - _DrawPosition: {r: 0.56, g: 0.5, b: 0, a: 0}
